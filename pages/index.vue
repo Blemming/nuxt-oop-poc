@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import PokemonList from '~/classes/PokemonList';
 
 import PokemonMini from '~/components/PokemonMini';
 
@@ -28,7 +27,7 @@ export default {
 	async asyncData ({ app }) {
 		return {
 			pokemonList: [],
-			data: await PokemonList.get()
+			data: await app.$ClassPokemonList.get()
 		};
 	},
 	computed: {
@@ -37,7 +36,7 @@ export default {
 		}
 	},
 	created () {
-		this.pokemonList = new PokemonList(this.data);
+		this.pokemonList = new this.$ClassPokemonList(this.data);
 	},
 	methods: {
 		async fetchNext () {

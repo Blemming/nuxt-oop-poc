@@ -1,11 +1,12 @@
 import Ability from './Ability';
 
 export default class Pokemon {
-	id='';
-	name='';
-	weight='';
-	height='';
-	abilities=[];
+	id = '';
+	name = '';
+	weight = '';
+	height = '';
+	abilities = [];
+	static _api = {};
 
 	constructor (data, api) {
 		this.id = data?.id;
@@ -13,8 +14,10 @@ export default class Pokemon {
 		this.weight = data?.weight;
 		this.height = data?.height;
 		if (data.abilities?.length) {
-			this.abilities = data.abilities.map(abilityData => new Ability(abilityData)) ?? [];
+			this.abilities =
+				data.abilities.map(abilityData => new Ability(abilityData)) ?? [];
 		}
+		this.api = Pokemon._api;
 	}
 
 	get image () {
@@ -25,7 +28,7 @@ export default class Pokemon {
 		return [`/pokemon/${params.id}`];
 	}
 
-	static get (api, id) {
-		return api.fetch(`/pokemon/${id}`);
+	static get (id) {
+		return Pokemon._api.fetch(`/pokemon/${id}`);
 	}
 }

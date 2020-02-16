@@ -36,16 +36,15 @@
 </template>
 
 <script>
-import Pokemon from '~/classes/Pokemon';
 export default {
 	async asyncData ({ app, params }) {
 		return {
 			pokemon: {},
-			data: await app.$api.fetch(...Pokemon.fetch(params))
+			data: await app.$ClassPokemon.get(params.id)
 		};
 	},
 	created () {
-		this.pokemon = new Pokemon(this.data);
+		this.pokemon = new this.$ClassPokemon(this.data);
 	}
 };
 </script>
